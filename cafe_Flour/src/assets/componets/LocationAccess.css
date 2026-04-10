@@ -1,0 +1,144 @@
+.location-section {
+  padding: 3rem 2rem 4rem;
+  background: linear-gradient(180deg, #231b16 0%, #16100c 100%);
+  color: #f7efe7;
+}
+
+.location-intro {
+  max-width: 980px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.location-eyebrow {
+  display: inline-flex;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffd69d;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.location-intro h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1.05;
+}
+
+.location-intro p {
+  margin: 1rem 0 0;
+  color: #d7c8b7;
+  max-width: 680px;
+  line-height: 1.8;
+}
+
+.location-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem;
+}
+
+.location-map-card,
+.location-details-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.75rem;
+  overflow: hidden;
+}
+
+.map-label,
+.details-label {
+  display: block;
+  padding: 1.35rem 1.5rem 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ffdfb5;
+  font-size: 0.8rem;
+}
+
+.map-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.location-details-card {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.facility-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.facility-list li {
+  padding: 1rem 1rem 1rem 0;
+  border-left: 3px solid rgba(255, 214, 157, 0.9);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+}
+
+.facility-list strong {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+.facility-list p {
+  margin: 0;
+  color: #d7c8b7;
+  line-height: 1.7;
+}
+
+.location-footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.location-footer span {
+  display: block;
+  color: #ffd69d;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+}
+
+.location-footer p {
+  margin: 0;
+  color: #d7c8b7;
+  line-height: 1.7;
+}
+
+@media (max-width: 980px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .location-section {
+    padding: 2rem 1rem 3rem;
+  }
+}

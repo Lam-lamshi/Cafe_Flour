@@ -1,0 +1,138 @@
+.auth-page {
+  min-height: 100vh;
+  padding: 3rem 1.5rem 4rem;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top left, rgba(255, 238, 216, 0.15), transparent 35%),
+    linear-gradient(180deg, #241b16 0%, #160f0a 100%);
+  color: #f7efe7;
+}
+
+.auth-card {
+  width: min(680px, 100%);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.auth-eyebrow {
+  display: inline-flex;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffd69d;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.auth-header h2 {
+  margin: 0.65rem 0 0;
+  font-size: clamp(2rem, 3vw, 2.45rem);
+  line-height: 1.05;
+}
+
+.auth-header p {
+  margin: 0.85rem 0 0;
+  max-width: 560px;
+  color: #d7c6b4;
+  line-height: 1.75;
+}
+
+.auth-close {
+  border: none;
+  background: transparent;
+  color: #f5efe7;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.auth-toggle {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1.5rem 0 1.2rem;
+}
+
+.auth-toggle button {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  color: #f7efe7;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.auth-toggle button.active,
+.auth-toggle button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: #e8dbcc;
+  font-size: 0.95rem;
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  padding: 0.95rem 1rem;
+  font: inherit;
+}
+
+.auth-form textarea {
+  min-height: 90px;
+}
+
+.auth-error {
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 75, 75, 0.12);
+  color: #ffb3a7;
+}
+
+.auth-submit {
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #ffd08f 0%, #f7b35a 100%);
+  color: #2a180b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .auth-header {
+    flex-direction: column;
+  }
+
+  .auth-toggle {
+    flex-direction: column;
+  }
+}
