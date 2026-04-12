@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./Menu.css";
-import ".env";
 
 const bakeryHighlights = [
   {
