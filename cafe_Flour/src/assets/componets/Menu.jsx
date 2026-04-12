@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Menu.css";
+import ".env";
 
 const bakeryHighlights = [
   {
@@ -32,8 +33,11 @@ export default function Menu({ menuSections }) {
   const [activeBakery, setActiveBakery] = useState(bakeryHighlights[0].id);
   const [imageUrls, setImageUrls] = useState({});
   const activeItem = bakeryHighlights.find((item) => item.id === activeBakery);
-  const apiEndpoint =
-    import.meta.env.VITE_MENU_IMAGE_API_URL || "/api/menu-image";
+  const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
+  const customApiEndpoint = import.meta.env.VITE_MENU_IMAGE_API_URL;
+  const apiEndpoint = spoonacularKey
+    ? "https://api.spoonacular.com/food/images/search"
+    : customApiEndpoint || "/api/menu-image";
 
   const imageTargets = [
     ...menuSections.flatMap((section) =>
@@ -61,12 +65,19 @@ export default function Menu({ menuSections }) {
               item: target.key,
               prompt: target.prompt,
             });
-            const response = await fetch(
-              `${apiEndpoint}?${params.toString()}`,
-              {
-                signal: controller.signal,
-              },
-            );
+            let requestUrl = `${apiEndpoint}?${params.toString()}`;
+            if (spoonacularKey) {
+              const spoonacularParams = new URLSearchParams({
+                query: target.key,
+                number: "1",
+                apiKey: spoonacularKey,
+              });
+              requestUrl = `${apiEndpoint}?${spoonacularParams.toString()}`;
+            }
+
+            const response = await fetch(requestUrl, {
+              signal: controller.signal,
+            });
 
             if (!response.ok) {
               console.warn(
@@ -77,8 +88,11 @@ export default function Menu({ menuSections }) {
             }
 
             const body = await response.json().catch(() => null);
-            const imageUrl =
-              typeof body === "string" ? body : body?.imageUrl || body?.url;
+            const imageUrl = spoonacularKey
+              ? body?.results?.[0]?.image || body?.results?.[0]?.url
+              : typeof body === "string"
+                ? body
+                : body?.imageUrl || body?.url;
 
             if (imageUrl) {
               nextUrls[target.key] = imageUrl;
