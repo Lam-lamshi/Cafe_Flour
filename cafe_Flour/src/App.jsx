@@ -59,7 +59,7 @@ function App() {
       <header
         style={{
           width: "100%",
-          padding: "1rem 1.5rem",
+          padding: "0.75rem 1rem",
           position: "sticky",
           top: 0,
           zIndex: 20,
@@ -69,25 +69,32 @@ function App() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: "1rem",
+          gap: "0.75rem",
         }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
           <div
             style={{
-              fontSize: "1.15rem",
+              fontSize: "1rem",
               fontWeight: 800,
               letterSpacing: "0.08em",
               color: "#ffd69d",
             }}>
             Cafe Flour
           </div>
-          <span style={{ color: "#d7c6b4" }}>Premium bakery & fine café</span>
+          <span style={{ color: "#d7c6b4", fontSize: "0.95rem" }}>
+            Premium bakery & fine café
+          </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
           {currentUser ? (
             <>
-              <span style={{ color: "#f3e8dc", fontWeight: 600 }}>
+              <span
+                style={{
+                  color: "#f3e8dc",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                }}>
                 {currentUser.email} ({currentUser.role})
               </span>
               <button
@@ -96,11 +103,12 @@ function App() {
                 style={{
                   borderRadius: "999px",
                   border: "none",
-                  padding: "0.8rem 1.15rem",
+                  padding: "0.65rem 0.95rem",
                   background: "#ffd08f",
                   color: "#2a180b",
                   cursor: "pointer",
                   fontWeight: 700,
+                  fontSize: "0.95rem",
                 }}>
                 Sign out
               </button>
@@ -110,15 +118,8 @@ function App() {
               <button
                 type="button"
                 onClick={() => openAuthModal("login")}
-                style={{
-                  borderRadius: "999px",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  padding: "0.8rem 1.15rem",
-                  background: "transparent",
-                  color: "#fff",
-                  cursor: "pointer",
-                  fontWeight: 700,
-                }}>
+                className="lgn"
+                style={{ padding: "0.65rem 0.95rem", fontSize: "0.95rem" }}>
                 Login
               </button>
               <button
@@ -127,11 +128,12 @@ function App() {
                 style={{
                   borderRadius: "999px",
                   border: "none",
-                  padding: "0.8rem 1.15rem",
+                  padding: "0.65rem 0.95rem",
                   background: "#f4a261",
                   color: "#1d1108",
                   cursor: "pointer",
                   fontWeight: 700,
+                  fontSize: "0.95rem",
                 }}>
                 Sign up
               </button>

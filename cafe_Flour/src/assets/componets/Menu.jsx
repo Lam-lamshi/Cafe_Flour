@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Menu.css";
 
 const bakeryHighlights = [
@@ -34,6 +34,7 @@ export default function Menu({ menuSections }) {
   const activeItem = bakeryHighlights.find((item) => item.id === activeBakery);
   const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
   const customApiEndpoint = import.meta.env.VITE_MENU_IMAGE_API_URL;
+  const bakeryCardGridRef = useRef(null);
   const apiEndpoint = spoonacularKey
     ? "https://api.spoonacular.com/food/images/search"
     : customApiEndpoint || "/api/menu-image";
@@ -111,6 +112,61 @@ export default function Menu({ menuSections }) {
     return () => controller.abort();
   }, [apiEndpoint, menuSections]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    let intervalId = null;
+
+    const scrollToBakery = (bakeryId) => {
+      const grid = bakeryCardGridRef.current;
+      if (!grid) return;
+      const nextCard = grid.querySelector(`[data-card-id="${bakeryId}"]`);
+      nextCard?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    };
+
+    const startAutoSlide = () => {
+      intervalId = window.setInterval(() => {
+        setActiveBakery((currentId) => {
+          const currentIndex = bakeryHighlights.findIndex(
+            (item) => item.id === currentId,
+          );
+          const nextIndex = (currentIndex + 1) % bakeryHighlights.length;
+          const nextId = bakeryHighlights[nextIndex].id;
+          scrollToBakery(nextId);
+          return nextId;
+        });
+      }, 3800);
+    };
+
+    if (mq.matches) {
+      startAutoSlide();
+    }
+
+    const handleChange = (event) => {
+      if (event.matches) {
+        startAutoSlide();
+      } else {
+        window.clearInterval(intervalId);
+      }
+    };
+
+    mq.addEventListener?.("change", handleChange);
+    if (!mq.addEventListener) {
+      mq.addListener(handleChange);
+    }
+
+    return () => {
+      window.clearInterval(intervalId);
+      mq.removeEventListener?.("change", handleChange);
+      if (!mq.removeEventListener) {
+        mq.removeListener(handleChange);
+      }
+    };
+  }, []);
+
   return (
     <section className="menu-section">
       <div className="menu-intro">
@@ -138,11 +194,12 @@ export default function Menu({ menuSections }) {
             </p>
           </div>
 
-          <div className="bakery-card-grid">
+          <div className="bakery-card-grid" ref={bakeryCardGridRef}>
             {bakeryHighlights.map((bakery) => (
               <button
                 key={bakery.id}
                 type="button"
+                data-card-id={bakery.id}
                 className={`bakery-card ${activeBakery === bakery.id ? "active" : ""}`}
                 onClick={() => setActiveBakery(bakery.id)}>
                 <div>

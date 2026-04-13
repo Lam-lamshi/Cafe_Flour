@@ -1,15 +1,17 @@
 import "./Hero.css";
+const backgroundVideo = new URL("../background vid.mp4", import.meta.url).href;
 
 export default function Hero() {
   return (
     <section className="hero-section">
-      <video className="hero-video" autoPlay muted loop playsInline>
-        <source
-          src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
+      <video
+        className="hero-bg-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        src={backgroundVideo}
+      />
       <div className="hero-overlay"></div>
       <div className="hero-grid">
         <div className="hero-copy">
@@ -24,9 +26,8 @@ export default function Hero() {
             <a href="/order" className="hero-button hero-button-primary">
               Order Now
             </a>
-            <a
-              href="https://wa.me/1234567890"
-              className="hero-button hero-button-secondary">
+            <a href="https://wa.me/1234567890">
+              <button className="hero-button-secondary"></button>
               WhatsApp
             </a>
           </div>
@@ -59,7 +60,9 @@ export default function Hero() {
             <a
               href="https://wa.me/1234567890"
               className="floating-button floating-button-whatsapp">
-              WhatsApp
+              <button>
+                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+              </button>
             </a>
           </div>
         </div>
