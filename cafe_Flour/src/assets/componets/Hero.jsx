@@ -3,6 +3,14 @@ import "./Hero.css";
 export default function Hero() {
   return (
     <section className="hero-section">
+      <video className="hero-video" autoPlay muted loop playsInline>
+        <source
+          src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <div className="hero-overlay"></div>
       <div className="hero-grid">
         <div className="hero-copy">
           <span className="hero-eyebrow">Signature brunch & interior</span>
