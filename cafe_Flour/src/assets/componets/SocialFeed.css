@@ -45,7 +45,7 @@
   min-width: 190px;
   padding: 1rem 1.2rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #2ecc71 0%, #1c8e49 100%);
+  background: linear-gradient(135deg, #e1306c 0%, #c92a60 100%);
   color: #fff;
   font-weight: 700;
   text-decoration: none;
@@ -54,8 +54,29 @@
     box-shadow 0.2s ease;
 }
 
-.social-cta:hover {
+.social-cta:hover,
+.social-cta:focus-visible {
   transform: translateY(-2px);
+}
+
+.social-cta .insta-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.7rem;
+}
+
+@keyframes insta-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.social-cta-bounce {
+  animation: insta-bounce 1.4s ease-in-out infinite;
 }
 
 .social-grid-wrapper {
