@@ -32,11 +32,11 @@ export default function Menu({ menuSections }) {
   const [activeBakery, setActiveBakery] = useState(bakeryHighlights[0].id);
   const [imageUrls, setImageUrls] = useState({});
   const activeItem = bakeryHighlights.find((item) => item.id === activeBakery);
-  const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
+  const pixabayKey = import.meta.env.VITE_PIXABAY_KEY;
   const customApiEndpoint = import.meta.env.VITE_MENU_IMAGE_API_URL;
   const bakeryCardGridRef = useRef(null);
-  const apiEndpoint = spoonacularKey
-    ? "https://api.spoonacular.com/food/images/search"
+  const apiEndpoint = pixabayKey
+    ? "https://pixabay.com/api/"
     : customApiEndpoint || "/api/menu-image";
 
   const imageTargets = [
@@ -61,18 +61,23 @@ export default function Menu({ menuSections }) {
       await Promise.all(
         imageTargets.map(async (target) => {
           try {
-            const params = new URLSearchParams({
-              item: target.key,
-              prompt: target.prompt,
-            });
-            let requestUrl = `${apiEndpoint}?${params.toString()}`;
-            if (spoonacularKey) {
-              const spoonacularParams = new URLSearchParams({
-                query: target.key,
-                number: "1",
-                apiKey: spoonacularKey,
+            let requestUrl = `${apiEndpoint}?`;
+            if (pixabayKey) {
+              const pixabayParams = new URLSearchParams({
+                key: pixabayKey,
+                q: `${target.key}`,
+                image_type: "photo",
+                orientation: "horizontal",
+                per_page: "3",
+                safesearch: "true",
               });
-              requestUrl = `${apiEndpoint}?${spoonacularParams.toString()}`;
+              requestUrl += pixabayParams.toString();
+            } else {
+              const params = new URLSearchParams({
+                item: target.key,
+                prompt: target.prompt,
+              });
+              requestUrl += params.toString();
             }
 
             const response = await fetch(requestUrl, {
@@ -88,11 +93,39 @@ export default function Menu({ menuSections }) {
             }
 
             const body = await response.json().catch(() => null);
-            const imageUrl = spoonacularKey
-              ? body?.results?.[0]?.image || body?.results?.[0]?.url
-              : typeof body === "string"
-                ? body
-                : body?.imageUrl || body?.url;
+            let imageUrl;
+
+            if (pixabayKey) {
+              imageUrl =
+                body?.hits?.[0]?.largeImageURL ||
+                body?.hits?.[0]?.webformatURL ||
+                body?.hits?.[0]?.previewURL;
+
+              if (!imageUrl && body?.hits?.length === 0) {
+                const fallbackParams = new URLSearchParams({
+                  key: pixabayKey,
+                  q: target.key,
+                  image_type: "photo",
+                  orientation: "horizontal",
+                  per_page: "3",
+                  safesearch: "true",
+                });
+                const fallbackResponse = await fetch(
+                  `${apiEndpoint}?${fallbackParams.toString()}`,
+                  { signal: controller.signal },
+                );
+                const fallbackBody = await fallbackResponse
+                  .json()
+                  .catch(() => null);
+                imageUrl =
+                  fallbackBody?.hits?.[0]?.largeImageURL ||
+                  fallbackBody?.hits?.[0]?.webformatURL ||
+                  fallbackBody?.hits?.[0]?.previewURL;
+              }
+            } else {
+              imageUrl =
+                typeof body === "string" ? body : body?.imageUrl || body?.url;
+            }
 
             if (imageUrl) {
               nextUrls[target.key] = imageUrl;
@@ -111,61 +144,6 @@ export default function Menu({ menuSections }) {
     fetchImages();
     return () => controller.abort();
   }, [apiEndpoint, menuSections]);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
-    let intervalId = null;
-
-    const scrollToBakery = (bakeryId) => {
-      const grid = bakeryCardGridRef.current;
-      if (!grid) return;
-      const nextCard = grid.querySelector(`[data-card-id="${bakeryId}"]`);
-      nextCard?.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
-    };
-
-    const startAutoSlide = () => {
-      intervalId = window.setInterval(() => {
-        setActiveBakery((currentId) => {
-          const currentIndex = bakeryHighlights.findIndex(
-            (item) => item.id === currentId,
-          );
-          const nextIndex = (currentIndex + 1) % bakeryHighlights.length;
-          const nextId = bakeryHighlights[nextIndex].id;
-          scrollToBakery(nextId);
-          return nextId;
-        });
-      }, 3800);
-    };
-
-    if (mq.matches) {
-      startAutoSlide();
-    }
-
-    const handleChange = (event) => {
-      if (event.matches) {
-        startAutoSlide();
-      } else {
-        window.clearInterval(intervalId);
-      }
-    };
-
-    mq.addEventListener?.("change", handleChange);
-    if (!mq.addEventListener) {
-      mq.addListener(handleChange);
-    }
-
-    return () => {
-      window.clearInterval(intervalId);
-      mq.removeEventListener?.("change", handleChange);
-      if (!mq.removeEventListener) {
-        mq.removeListener(handleChange);
-      }
-    };
-  }, []);
 
   return (
     <section className="menu-section">

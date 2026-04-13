@@ -267,6 +267,40 @@
   font-size: 1rem;
 }
 
+.item-image-wrapper {
+  width: 80px;
+  min-width: 80px;
+  height: 80px;
+  border-radius: 1.35rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  place-items: center;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.item-image-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: #d7cabd;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.item-copy {
+  min-width: 0;
+}
+
 .menu-container::-webkit-scrollbar,
 .category-list::-webkit-scrollbar {
   width: 6px;
