@@ -1,0 +1,140 @@
+.dashboard-section {
+  padding: 3rem 2rem 4rem;
+  background: linear-gradient(180deg, #1f1712 0%, #221914 100%);
+  color: #f5efe7;
+}
+
+.dashboard-header {
+  max-width: 980px;
+  margin: 0 auto 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-eyebrow {
+  display: inline-flex;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffd99a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1.05;
+}
+
+.dashboard-header p {
+  margin: 0;
+  max-width: 760px;
+  color: #d4c5b5;
+  line-height: 1.8;
+}
+
+.dashboard-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.75rem;
+  padding: 1.5rem;
+}
+
+.dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.dashboard-add-button,
+.dashboard-remove-button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dashboard-add-button {
+  background: #ffd08f;
+  color: #2a1a0e;
+}
+
+.dashboard-remove-button {
+  margin-top: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4dad0;
+}
+
+.dashboard-items {
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-item {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-item-row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 1rem;
+}
+
+.dashboard-item label {
+  display: grid;
+  gap: 0.45rem;
+  color: #e9d8c4;
+  font-size: 0.94rem;
+}
+
+.dashboard-item input,
+.dashboard-item textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.85rem;
+  color: #fff;
+  padding: 0.9rem 0.95rem;
+  font: inherit;
+}
+
+.dashboard-item textarea {
+  resize: vertical;
+}
+
+.dashboard-item input:focus,
+.dashboard-item textarea:focus {
+  outline: none;
+  border-color: rgba(255, 208, 135, 0.9);
+  box-shadow: 0 0 0 3px rgba(255, 208, 135, 0.12);
+}
+
+@media (max-width: 780px) {
+  .dashboard-item-row {
+    grid-template-columns: 1fr;
+  }
+}
