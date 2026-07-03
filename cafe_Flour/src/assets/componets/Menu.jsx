@@ -39,6 +39,27 @@ export default function Menu({ menuSections }) {
     ? "https://pixabay.com/api/"
     : customApiEndpoint || "/api/menu-image";
 
+  const imageQueryOverrides = {
+    "Avocado Toast":
+      "avocado toast sourdough whipped ricotta heirloom tomatoes",
+    "Granola Parfait": "granola parfait greek yogurt honey berries",
+    "Smoked Salmon Bagel": "smoked salmon bagel cream cheese dill",
+    "Hazelnut Caramel Crepes":
+      "hazelnut caramel crepes with fresh berries and caramel drizzle",
+    "Berry-Filled Croissant": "berry filled croissant pastry with jam glaze",
+    "Matcha Green Tea Cheesecake":
+      "matcha green tea cheesecake slice topped with berries",
+    "Truffle Mushroom Bowl": "truffle mushroom bowl quinoa poached egg",
+    "Croque Madame": "croque madame sandwich gruyere ham fried egg",
+    "Harissa Chicken Salad": "harissa chicken salad roasted peppers greens",
+    "Flat White": "flat white coffee drink latte art",
+    "Beetroot Latte": "beetroot latte drink",
+    "Sparkling Lemonade": "sparkling lemonade with lemon mint ice",
+    "Lotus Cheesecake": "lotus cheesecake dessert",
+    "Lemon Cake Slices": "lemon cake slice dessert",
+    "Red Velvet Specialties": "red velvet cake dessert",
+  };
+
   const imageTargets = [
     ...menuSections.flatMap((section) =>
       section.items.map((item) => ({
@@ -65,7 +86,7 @@ export default function Menu({ menuSections }) {
             if (pixabayKey) {
               const pixabayParams = new URLSearchParams({
                 key: pixabayKey,
-                q: `${target.key}`,
+                q: imageQueryOverrides[target.key] || target.prompt,
                 image_type: "photo",
                 orientation: "horizontal",
                 per_page: "3",
@@ -104,7 +125,7 @@ export default function Menu({ menuSections }) {
               if (!imageUrl && body?.hits?.length === 0) {
                 const fallbackParams = new URLSearchParams({
                   key: pixabayKey,
-                  q: target.key,
+                  q: imageQueryOverrides[target.key] || target.prompt,
                   image_type: "photo",
                   orientation: "horizontal",
                   per_page: "3",

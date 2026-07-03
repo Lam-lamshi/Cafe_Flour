@@ -26,17 +26,17 @@ export const initialMenuSections = [
     description: "Baked daily with artisan flours and decadent fillings.",
     items: [
       {
-        name: "Hazelnut Crepes",
+        name: "Hazelnut Caramel Crepes",
         price: "13.95",
         details: "Roasted hazelnut cream, caramel drizzle",
       },
       {
-        name: "Berry Croissant",
+        name: "Berry-Filled Croissant",
         price: "7.25",
         details: "Butter laminated pastry with jam glaze",
       },
       {
-        name: "Matcha Cheesecake",
+        name: "Matcha Green Tea Cheesecake",
         price: "8.50",
         details: "Velvety matcha filling on crunchy crust",
       },

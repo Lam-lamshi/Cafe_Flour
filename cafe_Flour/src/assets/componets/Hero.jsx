@@ -3,8 +3,9 @@ import "./Hero.css";
 const backgroundVideo = new URL("../background vid.mp4", import.meta.url).href;
 
 const heroImageQueries = {
-  interior: "cafe interior cozy seating restaurant ambiance",
-  dish: "hazelnut crepes dessert gourmet plated",
+  interior:
+    "cozy cafe interior with warm wood tables, soft ambient lighting, and artisan decor",
+  dish: "hazelnut crepes plated with fresh berries, caramel sauce, and toasted almonds",
 };
 
 export default function Hero() {

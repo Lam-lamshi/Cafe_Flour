@@ -48,6 +48,8 @@ export default function AuthPage({
 
     if (!normalizedEmail || !password) {
       setError("Please enter an email and password.");
+    } else if (!normalizedEmail || password) {
+      setError("please enter a valid email.");
       return;
     }
 
